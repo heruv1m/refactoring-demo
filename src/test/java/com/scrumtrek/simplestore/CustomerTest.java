@@ -2,6 +2,7 @@ package com.scrumtrek.simplestore;
 
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -59,6 +60,22 @@ public class CustomerTest {
          c.Statement();
 
 
+    }
+
+    @Test
+    public void testFrequentRenterPointsNoBonus(){
+        String movieTitle = "mo         v-title";
+        PriceCodes ps = PriceCodes.Regular;
+        int days = 1;
+        Movie m = new Movie(movieTitle, ps);
+        String customerName = "some-name";
+        Rental r = new Rental(m, days);
+        Customer c = createCustomer(PriceCodes.Regular, movieTitle);
+        c.addRental(r);
+        String result = c.Statement();
+        System.out.println(result);
+        String[] resultRows =  result.split("\\n");
+        assertTrue(resultRows[4].contains("2"));
     }
 
     public Customer createCustomer(PriceCodes ps, String movieTitle){
