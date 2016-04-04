@@ -1,20 +1,46 @@
 package com.scrumtrek.simplestore;
 
-public class Rental {
-	private Movie m_Movie;
-	private int m_DaysRented;
+import java.util.ArrayList;
+import java.util.List;
 
-	public Rental(Movie movie, int daysRented) {
-		m_Movie = movie;
-		m_DaysRented = daysRented;
+public class Rental {
+	private List<MovieOrder> movies;
+	private int daysPeriod;
+	private double rentalAmount;
+
+	public Rental(int daysPeriod) {
+		this.daysPeriod = daysPeriod;
+	}
+
+	public List<MovieOrder> getMovies() {
+		return movies;
+	}
+
+	public int getDaysPeriod() {
+		return daysPeriod;
 	}
 
 	public int getDaysRented() {
-		return m_DaysRented;
+		return daysPeriod;
 	}
 
-	public Movie getMovie() {
-		return m_Movie;
+	public void addMovie(MovieOrder m){
+		if (movies == null) {
+			movies = new ArrayList<>();
+		}
+		movies.add(m);
+	}
+
+	public double getRentalAmount() {
+		return rentalAmount;
+	}
+
+	public void setDaysPeriod(int daysPeriod) {
+		this.daysPeriod = daysPeriod;
+	}
+
+	public void setRentalAmount(double rentalAmount) {
+		this.rentalAmount = rentalAmount;
 	}
 }
 
