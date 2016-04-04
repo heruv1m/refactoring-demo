@@ -51,14 +51,33 @@ public class CustomerTest {
 
     }
 
+    @Test(expected = NullPointerException.class)
+    public void testFailCustomerNewRelease(){
+        String movieTitle = "mov-title";
+        Customer c =
+                createFailCustomer(PriceCodes.NewRelease, movieTitle);
+         c.Statement();
+
+
+    }
+
     public Customer createCustomer(PriceCodes ps, String movieTitle){
-//        String movieTitle = "mov-title";
-//        PriceCodes ps = PriceCodes.Regular;
+
         int days = 11;
         Movie m = new Movie(movieTitle, ps);
         String customerName = "some-name";
         Customer c = new Customer(customerName);
         Rental r = new Rental(m, days);
+        c.addRental(r);
+        return c;
+    }
+
+    public Customer createFailCustomer(PriceCodes ps, String movieTitle){
+        int days = 11;
+        Movie m = new Movie(movieTitle, ps);
+        String customerName = null;
+        Customer c = new Customer(customerName);
+        Rental r = null;
         c.addRental(r);
         return c;
     }
