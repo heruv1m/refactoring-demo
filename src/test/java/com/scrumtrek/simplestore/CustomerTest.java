@@ -2,6 +2,7 @@ package com.scrumtrek.simplestore;
 
 import com.scrumtrek.simplestore.price.*;
 import com.scrumtrek.simplestore.report.JSONReport;
+import com.scrumtrek.simplestore.report.ReportType;
 import com.scrumtrek.simplestore.report.SimpleReport;
 import org.junit.Before;
 import org.junit.Test;
@@ -34,7 +35,7 @@ public class CustomerTest {
     }
     @Test
     public void testCustomerRegularPlain() {
-        String result = simpleReport.generate(customerRegular);
+        String result = simpleReport.generate(customerRegular, ReportType.MAX);
         String[] resultRows = result.split("\\n");
         assertTrue(resultRows[1].contains(movieTitle));
         assertTrue(resultRows[1].contains("15.5"));
@@ -43,7 +44,7 @@ public class CustomerTest {
     @Test
     public void testCustomerRegularJSON() {
 
-        String result = jsonReport.generate(customerRegular);
+        String result = jsonReport.generate(customerRegular, ReportType.MAX);
         System.out.println("result = " + result);
 
         assertTrue(result.equals("{\n" +
@@ -65,7 +66,7 @@ public class CustomerTest {
 
     @Test
     public void testCustomerChildrenPlain() {
-        String result = simpleReport.generate(customerChildren);
+        String result = simpleReport.generate(customerChildren, ReportType.MAX);
         String[] resultRows = result.split("\\n");
         assertTrue(resultRows[1].contains(movieTitle));
         assertTrue(resultRows[1].contains("12.0"));
@@ -76,7 +77,7 @@ public class CustomerTest {
         String movieTitle = "mov-title";
         Customer c = createCustomer(new Children(), movieTitle);
         c.setTotalAmount(c.getTotalAmount());
-        String result = jsonReport.generate(c);
+        String result = jsonReport.generate(c, ReportType.MAX);
         System.out.println("result = " + result);
         assertTrue(result.equals("{\n" +
                 "  \"name\" : \"some-name\",\n" +
@@ -101,7 +102,7 @@ public class CustomerTest {
         String movieTitle = "mov-title";
         Customer c = createCustomer(new NewRelease(), movieTitle);
         SimpleReport simpleReport = new SimpleReport();
-        String result = simpleReport.generate(c);
+        String result = simpleReport.generate(c, ReportType.MAX);
         String[] resultRows = result.split("\\n");
         assertTrue(resultRows[1].contains(movieTitle));
         assertTrue(resultRows[1].contains("33.0"));
@@ -113,7 +114,7 @@ public class CustomerTest {
         String movieTitle = "mov-title";
         Customer c = createCustomer(new XXX(), movieTitle);
         SimpleReport simpleReport = new SimpleReport();
-        String result = simpleReport.generate(c);
+        String result = simpleReport.generate(c, ReportType.MAX);
         System.out.println(result);
         String[] resultRows = result.split("\\n");
         assertTrue(resultRows[1].contains(movieTitle));
@@ -125,7 +126,7 @@ public class CustomerTest {
         String movieTitle = "mov-title";
         Customer c = createCustomer(new NewRelease(), movieTitle);
         JSONReport json = new JSONReport();
-        String result = json.generate(c);
+        String result = json.generate(c, ReportType.MAX);
         System.out.println("result = " + result);
 
         assertTrue(result.equals("{\n" +
@@ -150,7 +151,7 @@ public class CustomerTest {
         String movieTitle = "mov-title";
         Customer c = createFailCustomer(new NewRelease(), movieTitle);
         SimpleReport simpleReport = new SimpleReport();
-        simpleReport.generate(c);
+        simpleReport.generate(c, ReportType.MAX);
     }
 
     @Test(expected = NullPointerException.class)
@@ -158,7 +159,7 @@ public class CustomerTest {
         String movieTitle = "mov-title";
         Customer c = createFailCustomer(new NewRelease(), movieTitle);
         JSONReport jsonReport = new JSONReport();
-        jsonReport.generate(c);
+        jsonReport.generate(c, ReportType.MAX);
     }
 
     private Customer createCustomer(AbstractPriceCode ps, String movieTitle) {
