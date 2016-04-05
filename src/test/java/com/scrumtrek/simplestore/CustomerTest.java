@@ -2,6 +2,7 @@ package com.scrumtrek.simplestore;
 
 import com.scrumtrek.simplestore.price.*;
 import com.scrumtrek.simplestore.report.JSONReport;
+import com.scrumtrek.simplestore.report.ReportType;
 import com.scrumtrek.simplestore.report.SimpleReport;
 import org.junit.Test;
 
@@ -17,8 +18,9 @@ public class CustomerTest {
         String movieTitle = "mov-title";
         Customer c = createCustomer(new Regular(), movieTitle);
         SimpleReport simpleReport = new SimpleReport();
-        String result = simpleReport.generate(c);
+        String result = simpleReport.generate(c, ReportType.MAX);
         String[] resultRows = result.split("\\n");
+
         assertTrue(resultRows[1].contains(movieTitle));
         assertTrue(resultRows[1].contains("15.5"));
     }

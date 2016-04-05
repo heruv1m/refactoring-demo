@@ -10,7 +10,7 @@ import java.io.IOException;
  */
 public class JSONReport extends AbstractReport {
     @Override
-    protected String print(Customer customer) {
+    protected String print(Customer customer, ReportType type) {
         ObjectMapper mapper = new ObjectMapper();
         String result = "";
         try {

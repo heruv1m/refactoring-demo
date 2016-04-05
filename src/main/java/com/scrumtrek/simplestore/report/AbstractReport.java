@@ -8,9 +8,9 @@ import java.util.List;
  * Created by dmitry on 05/04/16.
  */
 public abstract class AbstractReport {
-    protected abstract String print(Customer customer);
+    protected abstract String print(Customer customer, ReportType type);
 
-    public String generate(Customer customer) {
+    public String generate(Customer customer, ReportType type) {
         for (Rental rental : customer.getRentals()) {
             rental.setRentalAmount(0);
             List<MovieOrder> movieOrders = rental.getMovieOrders();
@@ -22,6 +22,7 @@ public abstract class AbstractReport {
             }
             customer.setTotalAmount(customer.getTotalAmount() + rental.getRentalAmount());
         }
-        return print(customer);
+        return print(customer, type);
     }
+
 }
