@@ -202,7 +202,7 @@ public class JSONStatmentReportTest extends  AbstractReportTest {
 
         System.out.println(jsonReport);
 
-        assertEquals  ("Total amount not equals", amount,27.0,0.01);
+        assertEquals  (jsonReport, "{\"footer\":[{\"totalAmount\":27}],\"header\":{\"customerName\":\"Mickey Mouse\"}}");
 
     }
 
@@ -237,7 +237,7 @@ public class JSONStatmentReportTest extends  AbstractReportTest {
 
         System.out.println(jsonReport);
 
-        assertEquals  ("Total amount not equals", amount,27.0,0.01);
+        assertEquals  (jsonReport, "{\"footer\":[{\"totalAmount\":27}],\"header\":{\"customerName\":\"Mickey Mouse\"},\"body\":[{\"rental\":[{\"amount\":27}]}]}");
 
     }
 
