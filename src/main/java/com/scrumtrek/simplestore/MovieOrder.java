@@ -15,10 +15,6 @@ public class MovieOrder {
         return movie;
     }
 
-    public void setMovie(Movie movie) {
-        this.movie = movie;
-    }
-
     public double getAmount() {
         return amount;
     }
