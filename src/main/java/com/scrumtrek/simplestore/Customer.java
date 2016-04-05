@@ -30,8 +30,16 @@ public class Customer {
         return totalAmount;
     }
 
+    public void setTotalAmount(long totalAmount) {
+        this.totalAmount = totalAmount;
+    }
+
     public long getBonusPoints() {
         return bonusPoints;
+    }
+
+    public void setBonusPoints(long bonusPoints) {
+        this.bonusPoints = bonusPoints;
     }
 
     public void init() {

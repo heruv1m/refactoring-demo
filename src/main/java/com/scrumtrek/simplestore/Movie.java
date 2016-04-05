@@ -14,6 +14,10 @@ public class Movie {
         return priceCode;
     }
 
+    public void setPriceCode(PriceCodes value) {
+        priceCode = value;
+    }
+
     public String getTitle() {
         return title;
     }

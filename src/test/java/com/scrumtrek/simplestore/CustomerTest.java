@@ -65,6 +65,8 @@ public class CustomerTest {
     public void testCustomerChildrenJSON() {
         String movieTitle = "mov-title";
         Customer c = createCustomer(PriceCodes.CHILDRENS, movieTitle);
+        c.setTotalAmount(c.getTotalAmount());
+        c.setBonusPoints(c.getBonusPoints());
         c.init();
         JSONReport jsonReport = new JSONReport();
         String result = jsonReport.generateReport(c);
@@ -187,16 +189,20 @@ public class CustomerTest {
         Rental r = new Rental(days);
         MovieOrder mo = new MovieOrder(m);
         r.addMovie(mo);
+        r.setRentalAmount(r.getRentalAmount());
+        r.setDaysPeriod(r.getDaysPeriod());
         c.addRental(r);
         return c;
     }
 
     private Customer createFailCustomer(PriceCodes ps, String movieTitle) {
         Movie m = new Movie(movieTitle, ps);
+        m.setPriceCode(m.getPriceCode());
         String customerName = "some-name";
         Customer c = new Customer(customerName);
         Rental r = null;
         MovieOrder movieOrder = new MovieOrder(m);
+        movieOrder.setMovie(movieOrder.getMovie());
         r.addMovie(movieOrder);
         c.addRental(r);
         return c;

@@ -16,12 +16,24 @@ public class Rental {
 		return movieOrders;
 	}
 
+	public int getDaysPeriod() {
+		return daysPeriod;
+	}
+
 	public int getDaysRented() {
 		return daysPeriod;
 	}
 
 	public void addMovie(MovieOrder m){
 		movieOrders.add(m);
+	}
+
+	public double getRentalAmount() {
+		return rentalAmount;
+	}
+
+	public void setDaysPeriod(int daysPeriod) {
+		this.daysPeriod = daysPeriod;
 	}
 
 	public void setRentalAmount(double rentalAmount) {
