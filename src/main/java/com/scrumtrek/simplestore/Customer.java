@@ -3,9 +3,6 @@ package com.scrumtrek.simplestore;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by dmitry on 04/04/16.
- */
 public class Customer {
     private String name;
     private double totalAmount;

@@ -5,9 +5,7 @@ import com.scrumtrek.simplestore.Rental;
 
 import java.util.List;
 
-/**
- * Created by dmitry on 04/04/16.
- */
+
 public class SimpleReport extends AbstractReport {
     @Override
     protected String print(Customer customer) {

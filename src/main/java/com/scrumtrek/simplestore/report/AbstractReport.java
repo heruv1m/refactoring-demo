@@ -4,12 +4,16 @@ import com.scrumtrek.simplestore.*;
 
 import java.util.List;
 
-/**
- * Created by dmitry on 05/04/16.
- */
+
 public abstract class AbstractReport {
     protected abstract String print(Customer customer);
 
+    /**
+     *
+     * Генерирует данные для отчета
+     * @param customer
+     * @return
+     */
     public String generate(Customer customer) {
         for (Rental rental : customer.getRentals()) {
             rental.setRentalAmount(0);
