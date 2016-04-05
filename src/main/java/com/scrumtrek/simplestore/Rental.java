@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Rental {
-	private List<MovieOrder> movies;
+	private List<MovieOrder> movieOrders;
 	private int daysPeriod;
 	private double rentalAmount;
 
@@ -12,8 +12,8 @@ public class Rental {
 		this.daysPeriod = daysPeriod;
 	}
 
-	public List<MovieOrder> getMovies() {
-		return movies;
+	public List<MovieOrder> getMovieOrders() {
+		return movieOrders;
 	}
 
 	public int getDaysPeriod() {
@@ -25,10 +25,10 @@ public class Rental {
 	}
 
 	public void addMovie(MovieOrder m){
-		if (movies == null) {
-			movies = new ArrayList<>();
+		if (movieOrders == null) {
+			movieOrders = new ArrayList<>();
 		}
-		movies.add(m);
+		movieOrders.add(m);
 	}
 
 	public double getRentalAmount() {

@@ -1,6 +1,6 @@
 package com.scrumtrek.simplestore;
 
-import com.scrumtrek.simplestore.report.StringReport;
+import com.scrumtrek.simplestore.report.SimpleReport;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -17,8 +17,8 @@ public class CustomerTest {
         int days = 11;
 
         Customer c = createCustomer(PriceCodes.Regular, movieTitle);
-        StringReport stringReport = new StringReport();
-        String result = stringReport.generateReport(c);
+        SimpleReport simpleReport = new SimpleReport();
+        String result = simpleReport.generateReport(c);
         System.out.println(result);
         String[] resultRows = result.split("\\n");
         assertTrue(resultRows[1].contains(movieTitle));
@@ -30,8 +30,8 @@ public class CustomerTest {
     public void testCustomerChildren() {
         String movieTitle = "mov-title";
         Customer c = createCustomer(PriceCodes.Childrens, movieTitle);
-        StringReport stringReport = new StringReport();
-        String result = stringReport.generateReport(c);
+        SimpleReport simpleReport = new SimpleReport();
+        String result = simpleReport.generateReport(c);
         System.out.println(result);
         String[] resultRows = result.split("\\n");
         assertTrue(resultRows[1].contains(movieTitle));
@@ -43,8 +43,8 @@ public class CustomerTest {
     public void testCustomerNewRelease() {
         String movieTitle = "mov-title";
         Customer c = createCustomer(PriceCodes.NewRelease, movieTitle);
-        StringReport stringReport = new StringReport();
-        String result = stringReport.generateReport(c);
+        SimpleReport simpleReport = new SimpleReport();
+        String result = simpleReport.generateReport(c);
         System.out.println(result);
         String[] resultRows = result.split("\\n");
         assertTrue(resultRows[1].contains(movieTitle));
@@ -57,8 +57,8 @@ public class CustomerTest {
         String movieTitle = "mov-title";
         Customer c =
                 createFailCustomer(PriceCodes.NewRelease, movieTitle);
-        StringReport stringReport = new StringReport();
-        String result = stringReport.generateReport(c);
+        SimpleReport simpleReport = new SimpleReport();
+        String result = simpleReport.generateReport(c);
 
 
     }
@@ -73,8 +73,8 @@ public class CustomerTest {
 //        Rental r = new Rental(m, days);
         Customer c = createCustomer(PriceCodes.Regular, movieTitle);
 //        c.addRental(r);
-        StringReport stringReport = new StringReport();
-        String result = stringReport.generateReport(c);
+        SimpleReport simpleReport = new SimpleReport();
+        String result = simpleReport.generateReport(c);
         System.out.println(result);
         String[] resultRows = result.split("\\n");
         assertTrue(resultRows[4].contains("2"));

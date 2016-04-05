@@ -1,6 +1,6 @@
 package com.scrumtrek.simplestore;
 
-import com.scrumtrek.simplestore.report.StringReport;
+import com.scrumtrek.simplestore.report.SimpleReport;
 import org.junit.Test;
 
 /**
@@ -20,8 +20,8 @@ public class ReportTest {
         MovieOrder movieOrder = new MovieOrder(m);
         r.addMovie(movieOrder);
         c.addRental(r);
-        StringReport stringReport = new StringReport();
-        String result = stringReport.generateReport(c);
+        SimpleReport simpleReport = new SimpleReport();
+        String result = simpleReport.generateReport(c);
         System.out.println(result);
     }
 }

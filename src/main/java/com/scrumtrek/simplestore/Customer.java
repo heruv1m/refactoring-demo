@@ -47,7 +47,7 @@ public class Customer {
 
         for (Rental rental : rentals) {
             double rentalAmount = 0;
-            List<MovieOrder> movies = rental.getMovies();
+            List<MovieOrder> movies = rental.getMovieOrders();
             for (MovieOrder mOrder : movies) {
                 double thisAmount = 0;
                 Movie m = mOrder.getMovie();

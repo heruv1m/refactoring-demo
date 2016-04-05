@@ -8,7 +8,7 @@ import java.io.IOException;
 /**
  * Created by dmitry on 04/04/16.
  */
-public class JSONReport implements Report<String> {
+public class JSONReport implements Report {
     @Override
     public String generateReport(Customer customer) {
         ObjectMapper mapper = new ObjectMapper();
