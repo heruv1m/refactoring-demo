@@ -34,10 +34,26 @@ public class CustomerTest {
         jsonReport = new JSONReport();
     }
     @Test
-    public void testCustomerRegularPlain() {
+    public void testCustomerRegularPlainMax() {
         String result = simpleReport.generate(customerRegular, ReportType.MAX);
         String[] resultRows = result.split("\\n");
         assertTrue(resultRows[1].contains(movieTitle));
+        assertTrue(resultRows[1].contains("15.5"));
+    }
+
+    @Test
+    public void testCustomerRegularPlainMedium() {
+        String result = simpleReport.generate(customerRegular, ReportType.MEDIUM);
+        String[] resultRows = result.split("\\n");
+        assertTrue(resultRows[1].contains(movieTitle));
+        assertTrue(resultRows[1].contains("15.5"));
+    }
+
+    @Test
+    public void testCustomerRegularPlainShort() {
+        String result = simpleReport.generate(customerRegular, ReportType.SHORT);
+        String[] resultRows = result.split("\\n");
+        assertTrue(resultRows[1].contains("some-name"));
         assertTrue(resultRows[1].contains("15.5"));
     }
 
