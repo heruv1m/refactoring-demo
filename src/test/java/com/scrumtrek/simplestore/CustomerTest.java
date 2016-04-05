@@ -90,10 +90,7 @@ public class CustomerTest {
 
     @Test
     public void testCustomerChildrenJSON() {
-        String movieTitle = "mov-title";
-        Customer c = createCustomer(new Children(), movieTitle);
-        c.setTotalAmount(c.getTotalAmount());
-        String result = jsonReport.generate(c, ReportType.MAX);
+        String result = jsonReport.generate(customerChildren, ReportType.MAX);
         System.out.println("result = " + result);
         assertTrue(result.equals("{\n" +
                 "  \"name\" : \"some-name\",\n" +
@@ -113,19 +110,36 @@ public class CustomerTest {
     }
 
     @Test
-    public void testCustomerNewRelease() {
-
-        String movieTitle = "mov-title";
-        Customer c = createCustomer(new NewRelease(), movieTitle);
-        SimpleReport simpleReport = new SimpleReport();
-        String result = simpleReport.generate(c, ReportType.MAX);
+    public void testCustomerNewReleasePlain() {
+        String result = simpleReport.generate(customerNewRelease, ReportType.MAX);
         String[] resultRows = result.split("\\n");
         assertTrue(resultRows[1].contains(movieTitle));
         assertTrue(resultRows[1].contains("33.0"));
     }
 
     @Test
-    public void testCustomerXXX() {
+    public void testCustomerNewReleaseJSON() {
+        String result = jsonReport.generate(customerNewRelease, ReportType.MAX);
+        System.out.println("result = " + result);
+
+        assertTrue(result.equals("{\n" +
+                "  \"name\" : \"some-name\",\n" +
+                "  \"totalAmount\" : 33.0,\n" +
+                "  \"rentals\" : [ {\n" +
+                "    \"movieOrders\" : [ {\n" +
+                "      \"movie\" : {\n" +
+                "        \"title\" : \"mov-title\"\n" +
+                "      },\n" +
+                "      \"amount\" : 33.0\n" +
+                "    } ],\n" +
+                "    \"daysPeriod\" : 11,\n" +
+                "    \"rentalAmount\" : 33.0,\n" +
+                "    \"daysRented\" : 11\n" +
+                "  } ]\n" +
+                "}"));
+    }
+    @Test
+    public void testCustomerXXXPlain() {
 
         String movieTitle = "mov-title";
         Customer c = createCustomer(new XXX(), movieTitle);
@@ -138,11 +152,8 @@ public class CustomerTest {
     }
 
     @Test
-    public void testCustomerNewReleaseJSON() {
-        String movieTitle = "mov-title";
-        Customer c = createCustomer(new NewRelease(), movieTitle);
-        JSONReport json = new JSONReport();
-        String result = json.generate(c, ReportType.MAX);
+    public void testCustomerXXXJSON() {
+        String result = jsonReport.generate(customerXXX, ReportType.MAX);
         System.out.println("result = " + result);
 
         assertTrue(result.equals("{\n" +
