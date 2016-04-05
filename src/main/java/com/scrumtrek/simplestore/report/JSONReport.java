@@ -1,3 +1,5 @@
+/*
+
 package com.scrumtrek.simplestore.report;
 
 import com.scrumtrek.simplestore.Customer;
@@ -5,10 +7,12 @@ import org.codehaus.jackson.map.ObjectMapper;
 
 import java.io.IOException;
 
-/**
- * Created by dmitry on 04/04/16.
- */
+
 public class JSONReport implements Report {
+
+
+public class JSONReport implements Report<String> {
+
     @Override
     public String generateReport(Customer customer) {
         ObjectMapper mapper = new ObjectMapper();
@@ -20,4 +24,4 @@ public class JSONReport implements Report {
         }
         return result;
     }
-}
+}*/

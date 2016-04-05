@@ -17,6 +17,7 @@ public class CustomerTest {
         int days = 11;
 
         Customer c = createCustomer(PriceCodes.Regular, movieTitle);
+        c.init();
         SimpleReport simpleReport = new SimpleReport();
         String result = simpleReport.generateReport(c);
         System.out.println(result);
