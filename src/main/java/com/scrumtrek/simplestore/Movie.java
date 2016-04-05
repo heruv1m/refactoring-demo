@@ -1,20 +1,25 @@
 package com.scrumtrek.simplestore;
 
+import com.scrumtrek.simplestore.price.AbstractPriceCode;
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 public class Movie {
     private String title;
-    private PriceCodes priceCode;
+
+    @JsonIgnore
+    private AbstractPriceCode priceCode;
 
 
-    public Movie(String title, PriceCodes priceCode) {
+    public Movie(String title, AbstractPriceCode priceCode) {
         this.title = title;
         this.priceCode = priceCode;
     }
 
-    public PriceCodes getPriceCode() {
+    public AbstractPriceCode getPriceCode() {
         return priceCode;
     }
 
-    public void setPriceCode(PriceCodes value) {
+    public void setPriceCode(AbstractPriceCode value) {
         priceCode = value;
     }
 

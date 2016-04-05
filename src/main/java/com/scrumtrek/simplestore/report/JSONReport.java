@@ -16,7 +16,7 @@ public class JSONReport extends AbstractReport {
         try {
             result = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(customer);
         } catch (IOException ignored) {
-
+            ignored.printStackTrace();
         }
         return result;
     }

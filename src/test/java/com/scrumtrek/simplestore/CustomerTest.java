@@ -1,5 +1,6 @@
 package com.scrumtrek.simplestore;
 
+import com.scrumtrek.simplestore.price.*;
 import com.scrumtrek.simplestore.report.JSONReport;
 import com.scrumtrek.simplestore.report.SimpleReport;
 import org.junit.Test;
@@ -14,7 +15,7 @@ public class CustomerTest {
     @Test
     public void testCustomerRegular() {
         String movieTitle = "mov-title";
-        Customer c = createCustomer(PriceCodes.REGULAR, movieTitle);
+        Customer c = createCustomer(new Regular(), movieTitle);
         SimpleReport simpleReport = new SimpleReport();
         String result = simpleReport.generate(c);
         String[] resultRows = result.split("\\n");
@@ -25,18 +26,18 @@ public class CustomerTest {
     @Test
     public void testCustomerRegularJSON() {
         String movieTitle = "mov-title";
-        Customer c = createCustomer(PriceCodes.REGULAR, movieTitle);
+        Customer c = createCustomer(new Regular(), movieTitle);
         JSONReport jsonReport = new JSONReport();
         String result = jsonReport.generate(c);
+        System.out.println("result = " + result);
+
         assertTrue(result.equals("{\n" +
                 "  \"name\" : \"some-name\",\n" +
-                "  \"totalAmount\" : 15,\n" +
-                "  \"bonusPoints\" : 1,\n" +
+                "  \"totalAmount\" : 15.5,\n" +
                 "  \"rentals\" : [ {\n" +
                 "    \"movieOrders\" : [ {\n" +
                 "      \"movie\" : {\n" +
-                "        \"title\" : \"mov-title\",\n" +
-                "        \"priceCode\" : \"REGULAR\"\n" +
+                "        \"title\" : \"mov-title\"\n" +
                 "      },\n" +
                 "      \"amount\" : 15.5\n" +
                 "    } ],\n" +
@@ -50,7 +51,7 @@ public class CustomerTest {
     @Test
     public void testCustomerChildren() {
         String movieTitle = "mov-title";
-        Customer c = createCustomer(PriceCodes.CHILDRENS, movieTitle);
+        Customer c = createCustomer(new Children(), movieTitle);
         SimpleReport simpleReport = new SimpleReport();
         String result = simpleReport.generate(c);
         String[] resultRows = result.split("\\n");
@@ -61,19 +62,18 @@ public class CustomerTest {
     @Test
     public void testCustomerChildrenJSON() {
         String movieTitle = "mov-title";
-        Customer c = createCustomer(PriceCodes.CHILDRENS, movieTitle);
+        Customer c = createCustomer(new Children(), movieTitle);
         c.setTotalAmount(c.getTotalAmount());
         JSONReport jsonReport = new JSONReport();
         String result = jsonReport.generate(c);
+        System.out.println("result = " + result);
         assertTrue(result.equals("{\n" +
                 "  \"name\" : \"some-name\",\n" +
-                "  \"totalAmount\" : 12,\n" +
-                "  \"bonusPoints\" : 1,\n" +
+                "  \"totalAmount\" : 12.0,\n" +
                 "  \"rentals\" : [ {\n" +
                 "    \"movieOrders\" : [ {\n" +
                 "      \"movie\" : {\n" +
-                "        \"title\" : \"mov-title\",\n" +
-                "        \"priceCode\" : \"CHILDRENS\"\n" +
+                "        \"title\" : \"mov-title\"\n" +
                 "      },\n" +
                 "      \"amount\" : 12.0\n" +
                 "    } ],\n" +
@@ -88,7 +88,7 @@ public class CustomerTest {
     public void testCustomerNewRelease() {
 
         String movieTitle = "mov-title";
-        Customer c = createCustomer(PriceCodes.NEWRELEASE, movieTitle);
+        Customer c = createCustomer(new NewRelease(), movieTitle);
         SimpleReport simpleReport = new SimpleReport();
         String result = simpleReport.generate(c);
         String[] resultRows = result.split("\\n");
@@ -97,20 +97,33 @@ public class CustomerTest {
     }
 
     @Test
+    public void testCustomerXXX() {
+
+        String movieTitle = "mov-title";
+        Customer c = createCustomer(new XXX(), movieTitle);
+        SimpleReport simpleReport = new SimpleReport();
+        String result = simpleReport.generate(c);
+        System.out.println(result);
+        String[] resultRows = result.split("\\n");
+        assertTrue(resultRows[1].contains(movieTitle));
+        assertTrue(resultRows[1].contains("15.5"));
+    }
+
+    @Test
     public void testCustomerNewReleaseJSON() {
         String movieTitle = "mov-title";
-        Customer c = createCustomer(PriceCodes.NEWRELEASE, movieTitle);
+        Customer c = createCustomer(new NewRelease(), movieTitle);
         JSONReport json = new JSONReport();
         String result = json.generate(c);
+        System.out.println("result = " + result);
+
         assertTrue(result.equals("{\n" +
                 "  \"name\" : \"some-name\",\n" +
-                "  \"totalAmount\" : 33,\n" +
-                "  \"bonusPoints\" : 2,\n" +
+                "  \"totalAmount\" : 33.0,\n" +
                 "  \"rentals\" : [ {\n" +
                 "    \"movieOrders\" : [ {\n" +
                 "      \"movie\" : {\n" +
-                "        \"title\" : \"mov-title\",\n" +
-                "        \"priceCode\" : \"NEWRELEASE\"\n" +
+                "        \"title\" : \"mov-title\"\n" +
                 "      },\n" +
                 "      \"amount\" : 33.0\n" +
                 "    } ],\n" +
@@ -124,7 +137,7 @@ public class CustomerTest {
     @Test(expected = NullPointerException.class)
     public void testFailCustomerNewRelease() {
         String movieTitle = "mov-title";
-        Customer c = createFailCustomer(PriceCodes.NEWRELEASE, movieTitle);
+        Customer c = createFailCustomer(new NewRelease(), movieTitle);
         SimpleReport simpleReport = new SimpleReport();
         simpleReport.generate(c);
     }
@@ -132,12 +145,12 @@ public class CustomerTest {
     @Test(expected = NullPointerException.class)
     public void testFailCustomerNewReleaseJSON() {
         String movieTitle = "mov-title";
-        Customer c = createFailCustomer(PriceCodes.NEWRELEASE, movieTitle);
+        Customer c = createFailCustomer(new NewRelease(), movieTitle);
         JSONReport jsonReport = new JSONReport();
         jsonReport.generate(c);
     }
 
-    private Customer createCustomer(PriceCodes ps, String movieTitle) {
+    private Customer createCustomer(AbstractPriceCode ps, String movieTitle) {
         int days = 11;
         Movie m = new Movie(movieTitle, ps);
         String customerName = "some-name";
@@ -151,7 +164,7 @@ public class CustomerTest {
         return c;
     }
 
-    private Customer createFailCustomer(PriceCodes ps, String movieTitle) {
+    private Customer createFailCustomer(AbstractPriceCode ps, String movieTitle) {
         Movie m = new Movie(movieTitle, ps);
         m.setPriceCode(m.getPriceCode());
         String customerName = "some-name";
