@@ -5,9 +5,6 @@ import org.codehaus.jackson.map.ObjectMapper;
 
 import java.io.IOException;
 
-/**
- * Created by dmitry on 04/04/16.
- */
 public class JSONReport extends AbstractReport {
     @Override
     protected String print(Customer customer, ReportType type) {

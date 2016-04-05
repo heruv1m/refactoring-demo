@@ -1,8 +1,6 @@
 package com.scrumtrek.simplestore;
 
-/**
- * Created by student on 04.04.2016.
- */
+
 public class MovieOrder {
     private Movie movie;
     private double amount;

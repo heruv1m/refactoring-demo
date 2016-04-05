@@ -2,8 +2,8 @@ package com.scrumtrek.simplestore;
 
 import com.scrumtrek.simplestore.price.*;
 import com.scrumtrek.simplestore.report.JSONReport;
-import com.scrumtrek.simplestore.report.ReportType;
 import com.scrumtrek.simplestore.report.SimpleReport;
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -13,24 +13,37 @@ import static org.junit.Assert.assertTrue;
 
 
 public class CustomerTest {
-    @Test
-    public void testCustomerRegular() {
-        String movieTitle = "mov-title";
-        Customer c = createCustomer(new Regular(), movieTitle);
-        SimpleReport simpleReport = new SimpleReport();
-        String result = simpleReport.generate(c, ReportType.MAX);
-        String[] resultRows = result.split("\\n");
+    private String movieTitle;
 
+    private SimpleReport simpleReport;
+    private JSONReport jsonReport;
+    private Customer customerRegular;
+    private Customer customerChildren;
+    private Customer customerNewRelease;
+    private Customer customerXXX;
+
+    @Before
+    public void setUp() {
+        movieTitle = "mov-title";
+        customerRegular = createCustomer(new Regular(), movieTitle);
+        customerChildren = createCustomer(new Children(), movieTitle);
+        customerNewRelease = createCustomer(new NewRelease(), movieTitle);
+        customerXXX = createCustomer(new XXX(), movieTitle);
+        simpleReport = new SimpleReport();
+        jsonReport = new JSONReport();
+    }
+    @Test
+    public void testCustomerRegularPlain() {
+        String result = simpleReport.generate(customerRegular);
+        String[] resultRows = result.split("\\n");
         assertTrue(resultRows[1].contains(movieTitle));
         assertTrue(resultRows[1].contains("15.5"));
     }
 
     @Test
     public void testCustomerRegularJSON() {
-        String movieTitle = "mov-title";
-        Customer c = createCustomer(new Regular(), movieTitle);
-        JSONReport jsonReport = new JSONReport();
-        String result = jsonReport.generate(c);
+
+        String result = jsonReport.generate(customerRegular);
         System.out.println("result = " + result);
 
         assertTrue(result.equals("{\n" +
@@ -51,11 +64,8 @@ public class CustomerTest {
     }
 
     @Test
-    public void testCustomerChildren() {
-        String movieTitle = "mov-title";
-        Customer c = createCustomer(new Children(), movieTitle);
-        SimpleReport simpleReport = new SimpleReport();
-        String result = simpleReport.generate(c);
+    public void testCustomerChildrenPlain() {
+        String result = simpleReport.generate(customerChildren);
         String[] resultRows = result.split("\\n");
         assertTrue(resultRows[1].contains(movieTitle));
         assertTrue(resultRows[1].contains("12.0"));
@@ -66,7 +76,6 @@ public class CustomerTest {
         String movieTitle = "mov-title";
         Customer c = createCustomer(new Children(), movieTitle);
         c.setTotalAmount(c.getTotalAmount());
-        JSONReport jsonReport = new JSONReport();
         String result = jsonReport.generate(c);
         System.out.println("result = " + result);
         assertTrue(result.equals("{\n" +
