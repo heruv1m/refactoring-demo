@@ -15,9 +15,8 @@ public class CustomerTest {
     public void testCustomerRegular() {
         String movieTitle = "mov-title";
         Customer c = createCustomer(PriceCodes.REGULAR, movieTitle);
-        c.init();
         SimpleReport simpleReport = new SimpleReport();
-        String result = simpleReport.generateReport(c);
+        String result = simpleReport.generate(c);
         String[] resultRows = result.split("\\n");
         assertTrue(resultRows[1].contains(movieTitle));
         assertTrue(resultRows[1].contains("15.5"));
@@ -27,9 +26,8 @@ public class CustomerTest {
     public void testCustomerRegularJSON() {
         String movieTitle = "mov-title";
         Customer c = createCustomer(PriceCodes.REGULAR, movieTitle);
-        c.init();
         JSONReport jsonReport = new JSONReport();
-        String result = jsonReport.generateReport(c);
+        String result = jsonReport.generate(c);
         assertTrue(result.equals("{\n" +
                 "  \"name\" : \"some-name\",\n" +
                 "  \"totalAmount\" : 15,\n" +
@@ -53,9 +51,8 @@ public class CustomerTest {
     public void testCustomerChildren() {
         String movieTitle = "mov-title";
         Customer c = createCustomer(PriceCodes.CHILDRENS, movieTitle);
-        c.init();
         SimpleReport simpleReport = new SimpleReport();
-        String result = simpleReport.generateReport(c);
+        String result = simpleReport.generate(c);
         String[] resultRows = result.split("\\n");
         assertTrue(resultRows[1].contains(movieTitle));
         assertTrue(resultRows[1].contains("12.0"));
@@ -66,10 +63,8 @@ public class CustomerTest {
         String movieTitle = "mov-title";
         Customer c = createCustomer(PriceCodes.CHILDRENS, movieTitle);
         c.setTotalAmount(c.getTotalAmount());
-        c.setBonusPoints(c.getBonusPoints());
-        c.init();
         JSONReport jsonReport = new JSONReport();
-        String result = jsonReport.generateReport(c);
+        String result = jsonReport.generate(c);
         assertTrue(result.equals("{\n" +
                 "  \"name\" : \"some-name\",\n" +
                 "  \"totalAmount\" : 12,\n" +
@@ -94,9 +89,8 @@ public class CustomerTest {
 
         String movieTitle = "mov-title";
         Customer c = createCustomer(PriceCodes.NEWRELEASE, movieTitle);
-        c.init();
         SimpleReport simpleReport = new SimpleReport();
-        String result = simpleReport.generateReport(c);
+        String result = simpleReport.generate(c);
         String[] resultRows = result.split("\\n");
         assertTrue(resultRows[1].contains(movieTitle));
         assertTrue(resultRows[1].contains("33.0"));
@@ -106,9 +100,8 @@ public class CustomerTest {
     public void testCustomerNewReleaseJSON() {
         String movieTitle = "mov-title";
         Customer c = createCustomer(PriceCodes.NEWRELEASE, movieTitle);
-        c.init();
         JSONReport json = new JSONReport();
-        String result = json.generateReport(c);
+        String result = json.generate(c);
         assertTrue(result.equals("{\n" +
                 "  \"name\" : \"some-name\",\n" +
                 "  \"totalAmount\" : 33,\n" +
@@ -133,7 +126,7 @@ public class CustomerTest {
         String movieTitle = "mov-title";
         Customer c = createFailCustomer(PriceCodes.NEWRELEASE, movieTitle);
         SimpleReport simpleReport = new SimpleReport();
-        simpleReport.generateReport(c);
+        simpleReport.generate(c);
     }
 
     @Test(expected = NullPointerException.class)
@@ -141,44 +134,7 @@ public class CustomerTest {
         String movieTitle = "mov-title";
         Customer c = createFailCustomer(PriceCodes.NEWRELEASE, movieTitle);
         JSONReport jsonReport = new JSONReport();
-        jsonReport.generateReport(c);
-    }
-
-    @Test
-    public void testFrequentRenterPointsNoBonus() {
-        String movieTitle = "mov-title";
-        Customer c = createCustomer(PriceCodes.NEWRELEASE, movieTitle);
-        c.init();
-        SimpleReport simpleReport = new SimpleReport();
-        String result = simpleReport.generateReport(c);
-        String[] resultRows = result.split("\\n");
-        assertTrue(resultRows[3].contains("2"));
-    }
-
-    @Test
-    public void testFrequentRenterPointsNoBonusJSON() {
-        String movieTitle = "mov-title";
-        Customer c = createCustomer(PriceCodes.NEWRELEASE, movieTitle);
-        c.init();
-        JSONReport jsonReport = new JSONReport();
-        String result = jsonReport.generateReport(c);
-        assertTrue(result.equals("{\n" +
-                "  \"name\" : \"some-name\",\n" +
-                "  \"totalAmount\" : 33,\n" +
-                "  \"bonusPoints\" : 2,\n" +
-                "  \"rentals\" : [ {\n" +
-                "    \"movieOrders\" : [ {\n" +
-                "      \"movie\" : {\n" +
-                "        \"title\" : \"mov-title\",\n" +
-                "        \"priceCode\" : \"NEWRELEASE\"\n" +
-                "      },\n" +
-                "      \"amount\" : 33.0\n" +
-                "    } ],\n" +
-                "    \"daysPeriod\" : 11,\n" +
-                "    \"rentalAmount\" : 33.0,\n" +
-                "    \"daysRented\" : 11\n" +
-                "  } ]\n" +
-                "}"));
+        jsonReport.generate(c);
     }
 
     private Customer createCustomer(PriceCodes ps, String movieTitle) {

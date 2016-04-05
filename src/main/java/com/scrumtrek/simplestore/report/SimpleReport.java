@@ -8,9 +8,9 @@ import java.util.List;
 /**
  * Created by dmitry on 04/04/16.
  */
-public class SimpleReport implements Report {
+public class SimpleReport extends AbstractReport {
     @Override
-    public String generateReport(Customer customer) {
+    protected String print(Customer customer) {
         final List<Rental> rentals = customer.getRentals();
         StringBuilder sb = new StringBuilder();
         sb.append("Rental record for ")
@@ -24,11 +24,7 @@ public class SimpleReport implements Report {
                                 .append(movie.getAmount())
                                 .append("\n")));
         sb.append("Amount owed is ")
-                .append(customer.getTotalAmount())
-                .append("\n");
-        sb.append("You earned ")
-                .append(customer.getBonusPoints())
-                .append(" frequent renter points.");
+                .append(customer.getTotalAmount());
         return sb.toString();
     }
 }
