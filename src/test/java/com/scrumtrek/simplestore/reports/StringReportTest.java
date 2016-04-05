@@ -3,6 +3,7 @@ package com.scrumtrek.simplestore.reports;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.scrumtrek.simplestore.model.ReportType;
 import com.scrumtrek.simplestore.reports.AbstractReportTest;
 
 import org.junit.Test;
@@ -43,7 +44,7 @@ public class StringReportTest  extends AbstractReportTest {
         // Generate invoice
         StatmentReport report = new StringStatmentReport();
         
-        String statementReport = report.report(custMickeyMouse);
+        String statementReport = report.report(custMickeyMouse, ReportType.FULL);
 
         // Print the statement
         System.out.println(statementReport);

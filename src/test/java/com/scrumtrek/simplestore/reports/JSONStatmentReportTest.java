@@ -42,7 +42,7 @@ public class JSONStatmentReportTest extends  AbstractReportTest {
         // Generate invoice
         JSONStatmentReport report = new JSONStatmentReport();
 
-        String jsonReport = report.report(custMickeyMouse);
+        String jsonReport = report.report(custMickeyMouse, ReportType.FULL);
 
         // Print the statement
         System.out.println(jsonReport);
@@ -69,7 +69,7 @@ public class JSONStatmentReportTest extends  AbstractReportTest {
         // Generate invoice
         JSONStatmentReport report = new JSONStatmentReport();
 
-        String jsonReport = report.report(custMickeyMouse);
+        String jsonReport = report.report(custMickeyMouse, ReportType.FULL);
 
         // Print the statement
         System.out.println(jsonReport);
@@ -101,7 +101,7 @@ public class JSONStatmentReportTest extends  AbstractReportTest {
         // Generate invoice
         JSONStatmentReport report = new JSONStatmentReport();
 
-        String jsonReport = report.report(custMickeyMouse);
+        String jsonReport = report.report(custMickeyMouse, ReportType.FULL);
 
 
         JSONObject json = new JSONStatmentReport().reportBody(custMickeyMouse);
@@ -141,7 +141,7 @@ public class JSONStatmentReportTest extends  AbstractReportTest {
         // Generate invoice
         JSONStatmentReport report = new JSONStatmentReport();
 
-        String jsonReport = report.report(custMickeyMouse);
+        String jsonReport = report.report(custMickeyMouse, ReportType.FULL);
 
         // Print the statement
         System.out.println(jsonReport);
