@@ -170,4 +170,75 @@ public class JSONStatmentReportTest extends  AbstractReportTest {
 
     }
 
+
+    @Test
+    public void testJSONReportBodyAmountShort() {
+
+        // Create movies
+        List<Movie> movies = new ArrayList<>();
+        movies.add(movCinderella);
+        movies.add(movStarWars);
+        movies.add(movGladiator);
+        movies.add(xxxMov);
+
+        Rental rental = new Rental(movies, 5);
+
+
+        custMickeyMouse = new Customer("Mickey Mouse");
+        // Assign rentals to customers
+        custMickeyMouse.addRental(rental);
+
+        // Generate invoice
+        JSONStatmentReport report = new JSONStatmentReport();
+
+        String jsonReport = report.report(custMickeyMouse, ReportType.SHORT);
+
+
+        JSONObject json = new JSONStatmentReport().reportBody(custMickeyMouse);
+
+        JSONArray array =  (JSONArray) json.get(JSONStatmentReport.RENTAL);
+
+        Double amount = array.getJSONObject(0).getDouble(JSONStatmentReport.AMOUNT);
+
+        System.out.println(jsonReport);
+
+        assertEquals  ("Total amount not equals", amount,27.0,0.01);
+
+    }
+
+    @Test
+    public void testJSONReportBodyAmountMedium() {
+
+        // Create movies
+        List<Movie> movies = new ArrayList<>();
+        movies.add(movCinderella);
+        movies.add(movStarWars);
+        movies.add(movGladiator);
+        movies.add(xxxMov);
+
+        Rental rental = new Rental(movies, 5);
+
+
+        custMickeyMouse = new Customer("Mickey Mouse");
+        // Assign rentals to customers
+        custMickeyMouse.addRental(rental);
+
+        // Generate invoice
+        JSONStatmentReport report = new JSONStatmentReport();
+
+        String jsonReport = report.report(custMickeyMouse, ReportType.MEDIUM);
+
+
+        JSONObject json = new JSONStatmentReport().reportBody(custMickeyMouse);
+
+        JSONArray array =  (JSONArray) json.get(JSONStatmentReport.RENTAL);
+
+        Double amount = array.getJSONObject(0).getDouble(JSONStatmentReport.AMOUNT);
+
+        System.out.println(jsonReport);
+
+        assertEquals  ("Total amount not equals", amount,27.0,0.01);
+
+    }
+
 }
