@@ -14,7 +14,7 @@ public class JSONReport implements Report {
         ObjectMapper mapper = new ObjectMapper();
         String result = "";
         try {
-            result = mapper.writeValueAsString(customer);
+            result = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(customer);
         } catch (IOException ignored) {
 
         }

@@ -22,7 +22,6 @@ public class Customer {
         return name;
     }
 
-
     public void addRental(Rental arg) {
         rentals.add(arg);
     }
@@ -52,18 +51,18 @@ public class Customer {
                 double thisAmount = 0;
                 Movie m = mOrder.getMovie();
                 switch (m.getPriceCode()) {
-                    case Regular:
+                    case REGULAR:
                         thisAmount += 2;
                         if (rental.getDaysRented() > 2) {
                             thisAmount += (rental.getDaysRented() - 2) * 1.5;
                         }
                         break;
 
-                    case NewRelease:
+                    case NEWRELEASE:
                         thisAmount += rental.getDaysRented() * 3;
                         break;
 
-                    case Childrens:
+                    case CHILDRENS:
                         thisAmount += 1.5;
                         if (rental.getDaysRented() > 3) {
                             thisAmount = (rental.getDaysRented() - 3) * 1.5;
@@ -75,7 +74,7 @@ public class Customer {
                 bonusPoints++;
 
                 // Add bonus for a two-day new-release rental
-                if ((m.getPriceCode() == PriceCodes.NewRelease) && (rental.getDaysRented() > 1)) {
+                if ((m.getPriceCode() == PriceCodes.NEWRELEASE) && (rental.getDaysRented() > 1)) {
                     bonusPoints++;
                 }
                 mOrder.setAmount(thisAmount);
@@ -85,7 +84,6 @@ public class Customer {
             totalAmount += rentalAmount;
 
         }
-
     }
 }
 
