@@ -13,9 +13,7 @@ public class CustomerTest {
     @Test
     public void testCustomerRegular() {
         String movieTitle = "mov-title";
-        PriceCodes ps = PriceCodes.Regular;
         int days = 11;
-
         Customer c = createCustomer(PriceCodes.Regular, movieTitle);
         c.init();
         SimpleReport simpleReport = new SimpleReport();
@@ -29,8 +27,11 @@ public class CustomerTest {
 
     @Test
     public void testCustomerChildren() {
+
         String movieTitle = "mov-title";
+        int days = 11;
         Customer c = createCustomer(PriceCodes.Childrens, movieTitle);
+        c.init();
         SimpleReport simpleReport = new SimpleReport();
         String result = simpleReport.generateReport(c);
         System.out.println(result);
@@ -42,8 +43,11 @@ public class CustomerTest {
 
     @Test
     public void testCustomerNewRelease() {
+
         String movieTitle = "mov-title";
+        int days = 11;
         Customer c = createCustomer(PriceCodes.NewRelease, movieTitle);
+        c.init();
         SimpleReport simpleReport = new SimpleReport();
         String result = simpleReport.generateReport(c);
         System.out.println(result);
@@ -61,24 +65,19 @@ public class CustomerTest {
         SimpleReport simpleReport = new SimpleReport();
         String result = simpleReport.generateReport(c);
 
-
     }
 
     @Test
     public void testFrequentRenterPointsNoBonus() {
-        String movieTitle = "mo         v-title";
-        PriceCodes ps = PriceCodes.Regular;
-        int days = 1;
-        Movie m = new Movie(movieTitle, ps);
-        String customerName = "some-name";
-//        Rental r = new Rental(m, days);
-        Customer c = createCustomer(PriceCodes.Regular, movieTitle);
-//        c.addRental(r);
+        String movieTitle = "mov-title";
+        int days = 11;
+        Customer c = createCustomer(PriceCodes.NewRelease, movieTitle);
+        c.init();
         SimpleReport simpleReport = new SimpleReport();
         String result = simpleReport.generateReport(c);
         System.out.println(result);
         String[] resultRows = result.split("\\n");
-        assertTrue(resultRows[4].contains("2"));
+        assertTrue(resultRows[3].contains("2"));
     }
 
     public Customer createCustomer(PriceCodes ps, String movieTitle) {
@@ -87,8 +86,10 @@ public class CustomerTest {
         Movie m = new Movie(movieTitle, ps);
         String customerName = "some-name";
         Customer c = new Customer(customerName);
-//        Rental r = new Rental(m, days);
-//        c.addRental(r);
+        Rental r = new Rental(days);
+        MovieOrder mo = new MovieOrder(m);
+        r.addMovie(mo);
+        c.addRental(r);
         return c;
     }
 
@@ -97,7 +98,7 @@ public class CustomerTest {
         Movie m = new Movie(movieTitle, ps);
         String customerName = "some-name";
         Customer c = new Customer(customerName);
-        Rental r = new Rental(days);
+        Rental r = null;
         MovieOrder movieOrder = new MovieOrder(m);
         r.addMovie(movieOrder);
         c.addRental(r);

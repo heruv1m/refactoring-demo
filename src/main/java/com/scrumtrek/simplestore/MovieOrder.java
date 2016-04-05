@@ -9,7 +9,6 @@ public class MovieOrder {
 
     public MovieOrder(Movie movie) {
         this.movie = movie;
-        this.amount = amount;
     }
 
     public Movie getMovie() {
